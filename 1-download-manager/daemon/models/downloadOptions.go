@@ -3,13 +3,14 @@ package models
 import (
 	"strings"
 
-	"carrega/models/errmodels"
+	"carrega/daemon/models/errmodels"
 )
 
 type DownloadOptions struct {
-	Url      string
-	FileName string
-	Progress int
+	Url       string
+	FileName  string
+	Progress  int
+	OutputDir string
 }
 
 func (ops *DownloadOptions) From(url string) *DownloadOptions {
@@ -24,6 +25,7 @@ func (ops *DownloadOptions) From(url string) *DownloadOptions {
 
 	ops.Url = url
 	ops.FileName = fileName
+	ops.OutputDir = "./tmp/"
 	return ops
 }
 

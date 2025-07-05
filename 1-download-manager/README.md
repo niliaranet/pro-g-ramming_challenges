@@ -1,7 +1,8 @@
 TODO!
 - [ ] Create a background process and a client to interact with it
-    - [ ] Create a socket process and interact with it externally
-    - [ ] Make basic download functionality work
+    - [x] Create a socket process and interact with it externally
+    - [x] Make basic download functionality work
+    - [ ] Add bidirectional socket communication too
 - [ ] ncurses-like menu like in ncurses, allow opening directory
     - [ ] Store downloads, ongoing progress and logs
     - [ ] Create a basic static interface that lists downloads

@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"carrega/models"
+	"carrega/daemon/models"
 )
 
 func Download(ops *models.DownloadOptions) error {
@@ -16,7 +16,7 @@ func Download(ops *models.DownloadOptions) error {
 		return err
 	}
 
-	f, err := os.Create(ops.FileName)
+	f, err := os.Create(ops.OutputDir + ops.FileName)
 	if err != nil {
 		return err
 	}
@@ -38,8 +38,7 @@ func Download(ops *models.DownloadOptions) error {
 		}
 	}()
 
-	_, err = io.Copy(f, res.Body)
-	if err != nil {
+	if _, err := io.Copy(f, res.Body); err != nil {
 		return err
 	}
 
@@ -48,6 +47,5 @@ func Download(ops *models.DownloadOptions) error {
 	/* give the tracker time to send a final message */
 	time.Sleep(time.Nanosecond)
 
-	fmt.Println("image downloaded")
 	return nil
 }
