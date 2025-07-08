@@ -1,8 +1,8 @@
 package process
 
 import (
-	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"time"
@@ -11,6 +11,7 @@ import (
 )
 
 func Download(ops *models.DownloadOptions) error {
+	log.Println("downloading", ops.Url)
 	res, err := http.Get(ops.Url)
 	if err != nil {
 		return err
@@ -30,9 +31,9 @@ func Download(ops *models.DownloadOptions) error {
 		for {
 			select {
 			case <-ticker:
-				fmt.Println("hello")
+				log.Println("downloading...")
 			case <-endTracker:
-				fmt.Println("end")
+				log.Println("download complete")
 				return
 			}
 		}

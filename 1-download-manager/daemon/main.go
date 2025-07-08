@@ -1,12 +1,16 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
-	"carrega/daemon/listener"
+	"carrega/daemon/listener/unix"
+	"carrega/daemon/listener/unixgram"
 )
 
 func main() {
-	fmt.Println("running")
-	listener.StartListener()
+	log.Println("running")
+	go unixgram.StartListener()
+	go unix.StartServer()
+	for {
+	}
 }

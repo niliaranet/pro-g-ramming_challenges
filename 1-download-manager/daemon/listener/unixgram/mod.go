@@ -1,4 +1,4 @@
-package listener
+package unixgram
 
 import (
 	"log"
@@ -10,7 +10,7 @@ import (
 	"carrega/daemon/process"
 )
 
-const socketUrl string = "/tmp/carrega.sock"
+const socketUrl string = "/tmp/carregagram.sock"
 
 func StartListener() {
 	socket := startControlSocket(socketUrl)
