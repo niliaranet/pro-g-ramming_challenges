@@ -1,16 +1,36 @@
 package main
 
 import (
+	"log"
+	"time"
+
 	"carrega/client/signal"
-	"fmt"
 )
 
 func main() {
-	out, err := signal.Send("download http://niliara.net/mothracompat.png")
+	/*
+		for range 4 {
+			err := signal.SendDownload("download http://niliara.net/mothracompat.png")
+			if err != nil {
+				log.Println(err)
+				return
+			}
+			time.Sleep(time.Second)
+		}
+
+		out, err := signal.Send("download http://niliara.net/mothracompat.png")
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		fmt.Println(out)
+	*/
+
+	err := signal.SendDownload("download https://discord.com/api/download?platform=linux")
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
-
-	fmt.Println(out)
+	time.Sleep(time.Second)
 }

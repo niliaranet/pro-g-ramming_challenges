@@ -4,7 +4,7 @@ TODO!
     - [x] Make basic download functionality work
     - [x] Add bidirectional socket communication too
 - [ ] ncurses-like menu like in ncurses, allow opening directory
-    - [ ] Store downloads, ongoing progress and logs
+    - [x] Store downloads, ongoing progress and logs
     - [ ] Create a basic static interface that lists downloads
     - [ ] Move through ongoing and done sections
     - [ ] Move up and down through the lists

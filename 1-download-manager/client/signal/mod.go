@@ -19,9 +19,19 @@ func Send(message string) (string, error) {
 	return string(buf[:n]), nil
 }
 
-func SendDownload(message string) {
-	addr, _ := net.ResolveUnixAddr("unixgram", unixgramUrl)
-	conn, _ := net.DialUnix("unixgram", nil, addr)
+func SendDownload(message string) error {
+	addr, err := net.ResolveUnixAddr("unixgram", unixgramUrl)
+	if err != nil {
+		return err
+	}
+
+	conn, err := net.DialUnix("unixgram", nil, addr)
+	if err != nil {
+		return err
+	}
+
 	conn.Write([]byte(message))
 	conn.Close()
+
+	return nil
 }

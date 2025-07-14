@@ -6,14 +6,14 @@ import (
 	"carrega/daemon/models/errmodels"
 )
 
-type DownloadOptions struct {
+type DownloadProcess struct {
 	Url       string
 	FileName  string
-	Progress  int
+	Progress  float32
 	OutputDir string
 }
 
-func (ops *DownloadOptions) From(url string) *DownloadOptions {
+func (ops *DownloadProcess) From(url string) *DownloadProcess {
 	if url == "" {
 		return ops
 	}
@@ -26,6 +26,7 @@ func (ops *DownloadOptions) From(url string) *DownloadOptions {
 	ops.Url = url
 	ops.FileName = fileName
 	ops.OutputDir = "./tmp/"
+	ops.Progress = 0.0
 	return ops
 }
 

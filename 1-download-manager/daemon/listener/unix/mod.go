@@ -4,19 +4,11 @@ import (
 	"log"
 	"net"
 	"os"
+
+	"carrega/daemon/memory"
 )
 
 const socketUrl string = "/tmp/carrega.sock"
-
-func handleConnection(conn net.Conn) {
-	defer conn.Close()
-	buf := make([]byte, 1024)
-	n, _ := conn.Read(buf)
-
-	response := buf[:n]
-	conn.Write(response)
-	log.Println(string(response))
-}
 
 func StartServer() {
 	os.Remove(socketUrl)
@@ -25,4 +17,15 @@ func StartServer() {
 		conn, _ := listener.Accept()
 		go handleConnection(conn)
 	}
+}
+
+func handleConnection(conn net.Conn) {
+	defer conn.Close()
+	buf := make([]byte, 1024)
+	n, _ := conn.Read(buf)
+	response := buf[:n]
+	response = append(response, memory.Finished.ToBytes()...)
+	log.Println(memory.Finished)
+
+	conn.Write(response)
 }

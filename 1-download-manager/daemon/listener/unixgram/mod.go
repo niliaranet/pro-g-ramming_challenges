@@ -13,15 +13,27 @@ import (
 const socketUrl string = "/tmp/carregagram.sock"
 
 func StartListener() {
-	socket := startControlSocket(socketUrl)
+	socket, err := startControlSocket(socketUrl)
+	if err != nil {
+		log.Panicln(err)
+	}
+
 	listenForMessages(socket)
 }
 
-func startControlSocket(path string) *net.UnixConn {
+func startControlSocket(path string) (*net.UnixConn, error) {
 	os.Remove(path)
-	addr, _ := net.ResolveUnixAddr("unixgram", path)
-	conn, _ := net.ListenUnixgram("unixgram", addr)
-	return conn
+	addr, err := net.ResolveUnixAddr("unixgram", path)
+	if err != nil {
+		return nil, err
+	}
+
+	conn, err := net.ListenUnixgram("unixgram", addr)
+	if err != nil {
+		return nil, err
+	}
+
+	return conn, nil
 }
 
 func listenForMessages(conn *net.UnixConn) {
@@ -43,7 +55,7 @@ func downloadCall(args []string) {
 	}
 	url := args[1]
 
-	var ops models.DownloadOptions
+	var ops models.DownloadProcess
 
 	err := process.Download(ops.From(url))
 	if err != nil {
